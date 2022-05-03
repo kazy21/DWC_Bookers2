@@ -1,17 +1,17 @@
 <div class="container px-5 px-sm-0">
-  <% if @book.errors.any? %>
+  <% if @new_book.errors.any? %>
     <h3>
-      <%= @book.errors.count %> errors prohibited this obj from being saved:
+      <%= @new_book.errors.count %> errors prohibited this obj from being saved:
     </h3>
     <ul>
-      <% @book.errors.full_messages.each do |message| %>
+      <% @new_book.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
     </ul>
   <% end %>
   <div class="row">
     <div class="col-md-3">
-      <%= render 'users/user_info' %>
+      <%= render 'users/user_info', user: current_user %>
 
       <div class="row">
         <%= link_to edit_user_path(current_user), class: "btn btn-outline-secondary btn-block" do %>
@@ -19,7 +19,7 @@
         <% end %>
       </div>
 
-      <%= render 'books/new_book', book: @book %>
+      <%= render 'books/new_book', new_book: @new_book %>
     </div>
     <div class="col-md-8 offset-md-1">
       <h2>Books</h2>
@@ -36,12 +36,12 @@
           <% @books.each do |book| %>
           <tr>
             <td>
-              <%= link_to user_path(book.user.id) do %>
+              <%= link_to user_path(book.user) do %>
                 <%= image_tag book.user.get_profile_image(80,80) %>
               <% end %>
             </td>
             <td>
-              <%= link_to book.title, book_path(book.id) %>
+              <%= link_to book.title, book_path(book) %>
             </td>
             <td>
               <%= book.body %>
